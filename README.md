@@ -6,3 +6,13 @@ Dicho de otro modo se guardaran las operaciones en un archivo .txt.
 Para ello utilizaremos `FileWriter` en el propio `Main.java`.
 
 ## Convertir el Main en una sola linea de código
+
+
+
+
+
+### Alumno(s):
+- Víctor Gómez Tejada
+- Pablo Fernández Fernández
+- David Benavides Foncubierta
+- José Antonio Díaz Busati
