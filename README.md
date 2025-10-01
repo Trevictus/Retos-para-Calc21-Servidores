@@ -8,6 +8,10 @@ Para ello utilizaremos `FileWriter` en el propio `Main.java`.
 ## Convertir el Main en una sola linea de código
 Encontrar la manera de dejar el Main en una sola linea, de forma que tendra que analizar una `EXPRESIÓN`
 
+## Dí las ventajas de separar `Parser` y `Lexer`
+
+## Las ventajas de una interfaz sellada ante una jerarquía abierta
+
 
 
 
