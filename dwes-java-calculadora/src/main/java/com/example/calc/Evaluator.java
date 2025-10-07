@@ -24,6 +24,10 @@ public final class Evaluator {
                         if (r == 0) throw new ArithmeticException("División por cero");
                         yield Math.floor(l / r);
                     }
+                    case "%" -> {
+                        if (r == 0) throw new ArithmeticException("División por cero en operación módulo");
+                        yield l % r;
+                    }
                     case "^" -> Math.pow(l, r);
                     default -> throw new IllegalStateException("Operador no soportado: " + b.op());
                 };

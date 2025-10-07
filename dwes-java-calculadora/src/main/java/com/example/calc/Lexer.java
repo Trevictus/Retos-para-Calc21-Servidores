@@ -32,6 +32,10 @@ public final class Lexer {
                         tokens.add(new Token(TokenType.SLASH, "/", start));
                     }
                 }
+                case '%' -> {
+                    i++;
+                    tokens.add(new Token(TokenType.REST, "%", start));
+                }
                 case '^' -> { i++; tokens.add(new Token(TokenType.CARET, "^", start)); }
                 case '(' -> { i++; tokens.add(new Token(TokenType.LPAREN, "(", start)); }
                 case ')' -> { i++; tokens.add(new Token(TokenType.RPAREN, ")", start)); }
