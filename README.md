@@ -8,21 +8,21 @@
 
 # Retos propuestos por nuestro equipo
 
-### Exportar resultados a .txt
+### 1. Exportar resultados a .txt
 Con esta funcionalidad el usuario, al evaluar una expresión, dispondra del historial de la expresión junto a los resultados de esta, guardados en un archivo .txt.  
 Dicho de otro modo se guardaran las operaciones en un archivo .txt.  
 Para ello utilizaremos `FileWriter` en el propio `Main.java`.
 
-### Convertir el Main en una sola linea de código
+### 2. Convertir el Main en una sola linea de código
 Encontrar la manera de dejar el Main en una sola linea, de forma que tendra que analizar una `EXPRESIÓN`
 
-### Dí las ventajas de separar `Parser` y `Lexer`
+### 3. Dí las ventajas de separar `Parser` y `Lexer`
 Con tus palabras.
 
-### Las ventajas de una interfaz sellada ante una jerarquía abierta
+### 4. Las ventajas de una interfaz sellada ante una jerarquía abierta
 Con tus palabras.
 
-# Retos a afrontar por el equipo:
+# Retos afrontados por nuestro equipo
 
 ### Retos de comprensión
 - **¿Qué hace la función peek()?**  
