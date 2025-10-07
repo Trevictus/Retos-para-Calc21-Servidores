@@ -1,11 +1,12 @@
-# Retos-para-Calc21-Servidores
+# Tarea 2 Java por equipos, Calculadora
 
-### Retos propuestos por los alumno(s):
+### Alumno(s):
 - Víctor Gómez Tejada
 - Pablo Fernández Fernández
 - David Benavides Foncubierta
 - José Antonio Díaz Busati
 
+# Retos propuestos por nuestro equipo
 
 ### Exportar resultados a .txt
 Con esta funcionalidad el usuario, al evaluar una expresión, dispondra del historial de la expresión junto a los resultados de esta, guardados en un archivo .txt.  
@@ -16,8 +17,10 @@ Para ello utilizaremos `FileWriter` en el propio `Main.java`.
 Encontrar la manera de dejar el Main en una sola linea, de forma que tendra que analizar una `EXPRESIÓN`
 
 ### Dí las ventajas de separar `Parser` y `Lexer`
+Con tus palabras.
 
 ### Las ventajas de una interfaz sellada ante una jerarquía abierta
+Con tus palabras.
 
 # Retos a afrontar por el equipo:
 
