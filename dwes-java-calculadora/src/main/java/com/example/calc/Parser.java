@@ -20,7 +20,7 @@ public final class Parser {
     private Expr expr() {
         Expr left = term();
         while (match(PLUS) || match(MINUS)) {
-            char op = prev().lexeme().charAt(0);
+            String op = prev().lexeme();
             Expr right = term();
             left = new Binary(left, op, right);
         }
@@ -29,8 +29,8 @@ public final class Parser {
 
     private Expr term() {
         Expr left = factor();
-        while (match(STAR) || match(SLASH)) {
-            char op = prev().lexeme().charAt(0);
+        while (match(STAR) || match(SLASH) || match(DOUBLE_SLASH)) {
+            String op = prev().lexeme(); // "/" o "//"
             Expr right = factor();
             left = new Binary(left, op, right);
         }
@@ -43,16 +43,16 @@ public final class Parser {
         Expr base = unary();
         if (match(CARET)) {
             Expr exponent = power(); // asociatividad a derecha
-            return new Binary(base, '^', exponent);
+            return new Binary(base, "^", exponent);
         }
         return base;
     }
 
     private Expr unary() {
         if (match(PLUS) || match(MINUS)) {
-            char op = prev().lexeme().charAt(0);
+            String op = prev().lexeme();
             Expr right = unary();
-            return new Unary(op, right);
+            return new Unary(op.charAt(0), right);
         }
         return primary();
     }
@@ -77,7 +77,7 @@ public final class Parser {
     private boolean match(TokenType t) { if (check(t)) { i++; return true; } return false; }
     private boolean check(TokenType t) { return peek().type() == t; }
     private Token peek() { return ts.get(i); }
-    private Token prev() { return ts.get(i-1); }
+    private Token prev() { return ts.get(i - 1); }
     private void expect(TokenType t, String msg) { if (!match(t)) throw error(msg + " (pos " + peek().position() + ")"); }
     private IllegalArgumentException error(String msg) { return new IllegalArgumentException(msg); }
 }

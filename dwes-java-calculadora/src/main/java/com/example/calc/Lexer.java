@@ -23,7 +23,15 @@ public final class Lexer {
                 case '+' -> { i++; tokens.add(new Token(TokenType.PLUS, "+", start)); }
                 case '-' -> { i++; tokens.add(new Token(TokenType.MINUS, "-", start)); }
                 case '*' -> { i++; tokens.add(new Token(TokenType.STAR, "*", start)); }
-                case '/' -> { i++; tokens.add(new Token(TokenType.SLASH, "/", start)); }
+                case '/' -> {
+                    i++;
+                    if (hasNext() && peek() == '/') { // detecta "//"
+                        i++;
+                        tokens.add(new Token(TokenType.DOUBLE_SLASH, "//", start));
+                    } else {
+                        tokens.add(new Token(TokenType.SLASH, "/", start));
+                    }
+                }
                 case '^' -> { i++; tokens.add(new Token(TokenType.CARET, "^", start)); }
                 case '(' -> { i++; tokens.add(new Token(TokenType.LPAREN, "(", start)); }
                 case ')' -> { i++; tokens.add(new Token(TokenType.RPAREN, ")", start)); }

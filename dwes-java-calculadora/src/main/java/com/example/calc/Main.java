@@ -9,7 +9,9 @@ public class Main {
         Operaciones: +  -  *  /  ^    Funciones: sin(x), cos(x)
         Precedencia: ^ (derecha), luego * /, luego + -
         Ejemplos:
-          1 + 2*3
+           5 / 2
+           10 // 2
+           1 + 2 * 3
           (1 + 2) * 3 ^ 2
           -2 ^ 3
           sin(3.14159/2) + cos(0)

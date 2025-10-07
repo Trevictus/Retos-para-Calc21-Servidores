@@ -16,11 +16,15 @@ public final class Evaluator {
                 double l = eval(b.left());
                 double r = eval(b.right());
                 yield switch (b.op()) {
-                    case '+' -> l + r;
-                    case '-' -> l - r;
-                    case '*' -> l * r;
-                    case '/' -> l / r;
-                    case '^' -> Math.pow(l, r);
+                    case "+" -> l + r;
+                    case "-" -> l - r;
+                    case "*" -> l * r;
+                    case "/" -> l / r;
+                    case "//" -> {
+                        if (r == 0) throw new ArithmeticException("División por cero");
+                        yield Math.floor(l / r);
+                    }
+                    case "^" -> Math.pow(l, r);
                     default -> throw new IllegalStateException("Operador no soportado: " + b.op());
                 };
             }
