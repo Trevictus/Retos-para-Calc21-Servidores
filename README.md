@@ -95,3 +95,91 @@ case Binary b -> {
 
 - **Calcular el resto de una división %**
 
+Se añade una nueva constante en `TokenType` para representar el resto.
+```java
+public enum TokenType {
+    NUMBER, IDENT,
+    PLUS, MINUS, STAR, SLASH, DOUBLE_SLASH, REST,
+    CARET,
+    LPAREN, RPAREN,
+    EOF
+}
+```
+En `Lexer.java`, añade el caso para el operador `%`.
+```java
+public List<Token> lex() {
+        List<Token> tokens = new ArrayList<>();
+        while (hasNext()) {
+            char c = peek();
+            if (Character.isWhitespace(c)) { i++; continue; }
+            int start = i;
+            switch (c) {
+                case '+' -> { i++; tokens.add(new Token(TokenType.PLUS, "+", start)); }
+                case '-' -> { i++; tokens.add(new Token(TokenType.MINUS, "-", start)); }
+                case '*' -> { i++; tokens.add(new Token(TokenType.STAR, "*", start)); }
+                case '/' -> {
+                    i++;
+                    if (hasNext() && peek() == '/') { // detecta "//"
+                        i++;
+                        tokens.add(new Token(TokenType.DOUBLE_SLASH, "//", start));
+                    } else {
+                        tokens.add(new Token(TokenType.SLASH, "/", start));
+                    }
+                }
+                case '%' -> {
+                    i++;
+                    tokens.add(new Token(TokenType.REST, "%", start));
+                }
+                case '^' -> { i++; tokens.add(new Token(TokenType.CARET, "^", start)); }
+                case '(' -> { i++; tokens.add(new Token(TokenType.LPAREN, "(", start)); }
+                case ')' -> { i++; tokens.add(new Token(TokenType.RPAREN, ")", start)); }
+                default -> {
+                    if (Character.isDigit(c) || c == '.') {
+                        tokens.add(number());
+                    } else if (Character.isLetter(c)) {
+                        tokens.add(ident());
+                    } else {
+                        throw new IllegalArgumentException("Carácter inesperado '" + c + "' en pos " + i);
+                    }
+                }
+            }
+        }
+        tokens.add(new Token(TokenType.EOF, "", i));
+        return tokens;
+    }
+```
+En `Parser.java`, actualiza el método `term()` para incluir `REST`:
+```java
+private Expr term() {
+    Expr left = factor();
+    while (match(STAR) || match(SLASH) || match(DOUBLE_SLASH) || match(REST)) {
+        String op = prev().lexeme(); // "/" o "//"
+        Expr right = factor();
+        left = new Binary(left, op, right);
+    }
+    return left;
+}
+```
+En `Evaluator.java`, añade el caso para el operador `%` en el switch de `Binary`
+```java
+case Binary b -> {
+                double l = eval(b.left());
+                double r = eval(b.right());
+                yield switch (b.op()) {
+                    case "+" -> l + r;
+                    case "-" -> l - r;
+                    case "*" -> l * r;
+                    case "/" -> l / r;
+                    case "//" -> {
+                        if (r == 0) throw new ArithmeticException("División por cero");
+                        yield Math.floor(l / r);
+                    }
+                    case "%" -> {
+                        if (r == 0) throw new ArithmeticException("División por cero en operación módulo");
+                        yield l % r;
+                    }
+                    case "^" -> Math.pow(l, r);
+                    default -> throw new IllegalStateException("Operador no soportado: " + b.op());
+                };
+            }
+```
