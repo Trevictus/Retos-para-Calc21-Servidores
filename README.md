@@ -32,3 +32,4 @@ Encontrar la manera de dejar el Main en una sola linea, de forma que tendra que 
 ### Retos de modificación
 Para ejecutar el programa y realizar las comprobaciones hemos debido marcar la carpeta `src/main/java` como Sources Root y la carpeta `src/test/java` como Test Resources Root.
 - **Calcular la división entera //**
+- **Calcular el resto de una división %**
