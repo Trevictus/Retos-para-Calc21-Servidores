@@ -18,3 +18,17 @@ Encontrar la manera de dejar el Main en una sola linea, de forma que tendra que 
 ## Dí las ventajas de separar `Parser` y `Lexer`
 
 ## Las ventajas de una interfaz sellada ante una jerarquía abierta
+
+# Retos a afrontar por el equipo:
+
+### Retos de comprensión
+- **¿Qué hace la función peek()?**  
+  Examina el siguiente carácter sin avanzar el índice en el lexer.
+- **¿Qué hace la función number()?**  
+  Extrae un literal numérico completo (incluyendo punto decimal) y lo convierte en token.
+- **¿Qué hace la clase Evaluator()?**  
+  Recorre el AST (Expr) usando pattern-matching y calcula el valor de la expresión.
+
+### Retos de modificación
+Para ejecutar el programa y realizar las comprobaciones hemos debido marcar la carpeta `src/main/java` como Sources Root y la carpeta `src/test/java` como Test Resources Root.
+- **Calcular la división entera //**
