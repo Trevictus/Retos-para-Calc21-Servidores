@@ -32,4 +32,63 @@ Encontrar la manera de dejar el Main en una sola linea, de forma que tendra que 
 ### Retos de modificación
 Para ejecutar el programa y realizar las comprobaciones hemos debido marcar la carpeta `src/main/java` como Sources Root y la carpeta `src/test/java` como Test Resources Root.
 - **Calcular la división entera //**
+  Se actualiza Binary en Expres.java para que admita operadores de más de un caracter.  
+```java
+record Binary(Expr left, String op, Expr right) implements Expr {}
+```
+  El método `lex()` de `Lexer.java` se modifica para poder capturar `DOUBLE_SLASH`.
+```java
+case '/' -> {
+i++;
+if (hasNext() && peek() == '/') { // detecta "//"
+i++;
+tokens.add(new Token(TokenType.DOUBLE_SLASH, "//", start));
+} else {
+tokens.add(new Token(TokenType.SLASH, "/", start));
+}
+}
+```
+Se añade una nueva constante en `TokenType` para representar la división entera.
+```java
+public enum TokenType {
+    NUMBER, IDENT,
+    PLUS, MINUS, STAR, SLASH, DOUBLE_SLASH,
+    CARET,
+    LPAREN, RPAREN,
+    EOF
+}
+```
+Se incorpora `DOUBLE_SLASH` en term() de `Parser.java`.
+```java
+private Expr term() {
+        Expr left = factor();
+        while (match(STAR) || match(SLASH) || match(DOUBLE_SLASH)) {
+            String op = prev().lexeme(); // "/" o "//"
+            Expr right = factor();
+            left = new Binary(left, op, right);
+        }
+        return left;
+    }
+```
+Se añade "//" a un caso nuevo en el switch que procesa `Binary`.
+```java
+case Binary b -> {
+                double l = eval(b.left());
+                double r = eval(b.right());
+                yield switch (b.op()) {
+                    case "+" -> l + r;
+                    case "-" -> l - r;
+                    case "*" -> l * r;
+                    case "/" -> l / r;
+                    case "//" -> {
+                        if (r == 0) throw new ArithmeticException("División por cero");
+                        yield Math.floor(l / r);
+                    }
+                    case "^" -> Math.pow(l, r);
+                    default -> throw new IllegalStateException("Operador no soportado: " + b.op());
+                };
+            }
+```
+
 - **Calcular el resto de una división %**
+
